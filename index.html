@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Valentine 💘</title>
+  <style>
+    body {
+      height: 100vh;
+      margin: 0;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: linear-gradient(135deg, #ff9a9e, #fad0c4);
+      font-family: 'Comic Sans MS', cursive, sans-serif;
+    }
+
+    .container {
+      text-align: center;
+      background: white;
+      padding: 40px 50px;
+      border-radius: 20px;
+      box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+      position: relative;
+      z-index: 2;
+    }
+
+    h1 {
+      font-size: 2rem;
+      margin-bottom: 30px;
+    }
+
+    button {
+      font-size: 1.2rem;
+      padding: 12px 25px;
+      margin: 10px;
+      border: none;
+      border-radius: 30px;
+      cursor: pointer;
+    }
+
+    #yes {
+      background-color: #ff4d6d;
+      color: white;
+    }
+
+    #yes:hover {
+      transform: scale(1.1);
+    }
+
+    #no {
+      background-color: #ccc;
+      position: absolute;
+    }
+
+    /* Floating hearts */
+    .heart {
+      position: fixed;
+      bottom: -20px;
+      font-size: 24px;
+      animation: floatUp 6s linear infinite;
+      opacity: 0.7;
+      pointer-events: none;
+    }
+
+    @keyframes floatUp {
+      0% {
+        transform: translateY(0);
+        opacity: 0.8;
+      }
+      100% {
+        transform: translateY(-110vh);
+        opacity: 0;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <h1>
+      Hey <span id="name">my love</span> 💖<br><br>
+      Will you be my mamacita this Valentine?
+    </h1>
+
+    <button id="yes">Yes 💕</button>
+    <button id="no">No 🙄</button>
+  </div>
+
+  <!-- Cute sound -->
+  <audio id="yesSound">
+    <source src="https://www.myinstants.com/media/sounds/kiss.mp3" type="audio/mpeg">
+  </audio>
+
+  <!-- Confetti -->
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+
+  <script>
+    // 🔧 PERSONALIZE HERE
+    const herName = "mamacita"; // change to her name or nickname
+    document.getElementById("name").innerText = herName;
+
+    const noButton = document.getElementById("no");
+    const yesButton = document.getElementById("yes");
+
+    // Make NO button escape (desktop + mobile)
+    function moveNoButton() {
+      const padding = 50;
+      const x = Math.random() * (window.innerWidth - padding);
+      const y = Math.random() * (window.innerHeight - padding);
+      noButton.style.left = x + "px";
+      noButton.style.top = y + "px";
+    }
+
+    noButton.addEventListener("mouseover", moveNoButton);
+    noButton.addEventListener("touchstart", moveNoButton);
+
+    // YES button magic
+    yesButton.addEventListener("click", () => {
+      document.getElementById("yesSound").play();
+
+      confetti({
+        particleCount: 200,
+        spread: 90,
+        origin: { y: 0.6 }
+      });
+
+      document.body.innerHTML = `
+        <div style="
+          height: 100vh;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          background: linear-gradient(135deg, #ff4d6d, #ffb3c6);
+          font-family: 'Comic Sans MS', cursive;
+          color: white;
+          text-align: center;
+          padding: 30px;
+        ">
+          <h1>
+            You’re officially my mamacita 😘💘<br><br>
+            Best Valentine ever 💕
+          </h1>
+        </div>
+      `;
+    });
+
+    // Floating hearts generator
+    function createHeart() {
+      const heart = document.createElement("div");
+      heart.className = "heart";
+      heart.innerText = "💖";
+      heart.style.left = Math.random() * 100 + "vw";
+      heart.style.animationDuration = 4 + Math.random() * 4 + "s";
+      document.body.appendChild(heart);
+
+      setTimeout(() => heart.remove(), 8000);
+    }
+
+    setInterval(createHeart, 300);
+  </script>
+</body>
+</html>
+
