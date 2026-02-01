@@ -64,8 +64,14 @@
     }
 
     @keyframes floatUp {
-      0% { transform: translateY(0); opacity: 0.8; }
-      100% { transform: translateY(-110vh); opacity: 0; }
+      0% {
+        transform: translateY(0);
+        opacity: 0.8;
+      }
+      100% {
+        transform: translateY(-110vh);
+        opacity: 0;
+      }
     }
   </style>
 </head>
@@ -73,7 +79,7 @@
 
   <div class="container">
     <h1>
-      Hey💖<br><br>
+      Hey <span id="name">my love</span> 💖<br><br>
       Will you be my mamasota this Valentine?
     </h1>
 
@@ -90,6 +96,10 @@
   <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
 
   <script>
+    // 🔧 PERSONALIZE HERE
+    const herName = "mamacita"; // change to her name or nickname
+    document.getElementById("name").innerText = herName;
+
     const noButton = document.getElementById("no");
     const yesButton = document.getElementById("yes");
 
@@ -120,4 +130,34 @@
           height: 100vh;
           display: flex;
           align-items: center;
-          justify-conten
+          justify-content: center;
+          background: linear-gradient(135deg, #ff4d6d, #ffb3c6);
+          font-family: 'Comic Sans MS', cursive;
+          color: white;
+          text-align: center;
+          padding: 30px;
+        ">
+          <h1>
+            You’re officially my mamasota 😘💘<br><br>
+            and excused for ever having had other girls in the past 💕
+          </h1>
+        </div>
+      `;
+    });
+
+    // Floating hearts generator
+    function createHeart() {
+      const heart = document.createElement("div");
+      heart.className = "heart";
+      heart.innerText = "💖";
+      heart.style.left = Math.random() * 100 + "vw";
+      heart.style.animationDuration = 4 + Math.random() * 4 + "s";
+      document.body.appendChild(heart);
+
+      setTimeout(() => heart.remove(), 8000);
+    }
+
+    setInterval(createHeart, 300);
+  </script>
+</body>
+</html>
